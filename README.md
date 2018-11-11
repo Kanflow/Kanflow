@@ -20,3 +20,10 @@ A kanban application focussed on flow
 1. Copy `postgrest.config.template` to `postgrest.config`
 2. Update the `db_uri` username and password
 3. Download and install postgrest (http://postgrest.org/en/v5.1/install.html)
+4. Generate a secure password and use it as the `jwt-secret` field
+5. Generate a JWT token from jwt.io using:
+
+- secret = the secure password generated in step 4 (not base64 encoded!)
+- Payload data to be `{"role": "kanflow_user" }
+
+6. Run postgrest `./postgrest postgrest.config`

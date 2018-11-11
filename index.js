@@ -1,7 +1,9 @@
 const Todoist = require("./todoist/todoist");
+const { Todo, Kanflow } = require("./kanflow/kanflow");
+const TODOIST_TOKEN = "supersecuretokenhere";
+const KANFLOW_TOKEN = "SUPERLONGTOKEN";
 
-const TOKEN = "supersecuretokenhere";
-
-const t = new Todoist(TOKEN);
-t.getProjects().then(data => console.log(data));
-t.getTasks().then(data => console.log(data));
+const td = new Todo();
+const kf = new Kanflow(KANFLOW_TOKEN);
+td.name = "cat";
+kf.saveTodo(td);

@@ -15,10 +15,10 @@ class Todoist {
         if (res.ok) {
           return res.json();
         }
-        console.error(res.statusText);
+        console.error(res.statusText); // TODO: Find a better way to handle errors
       })
       .catch(err => {
-        console.error("Error getting projects:", err);
+        console.error("Error getting projects:", err); // TODO: Find a better way to handle errors
       });
   }
 
@@ -31,7 +31,7 @@ class Todoist {
         if (res.ok) {
           return res.json();
         }
-        console.error(res.statusText);
+        console.error(res.statusText); // TODO: Find a better way to handle errors
       })
       .catch(err => {
         console.error("Error getting tasks:", err);

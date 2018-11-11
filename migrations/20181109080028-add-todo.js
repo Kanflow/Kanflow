@@ -19,8 +19,9 @@ exports.up = function(db, callback) {
     "todo",
     {
       ID: {
-        type: "string",
-        primaryKey: true
+        type: "int",
+        primaryKey: true,
+        autoIncrement: true
       },
       name: {
         type: "string"

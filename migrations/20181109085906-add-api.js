@@ -16,16 +16,27 @@ exports.setup = function(options, seedLink) {
 
 exports.up = function(db) {
   db.runSql(
-    "create role web_anon nologin;" +
-      "grant web_anon to postgres;" +
-      "grant usage on schema public to web_anon;" +
-      "grant select on todo to web_anon;"
+    "CREATE ROLE web_anon NOLOGIN;" +
+      "GRANT web_anon TO postgres;" +
+      "GRANT USAGE ON schema public TO web_anon;" +
+      "GRANT SELECT ON todo TO web_anon;" +
+      "CREATE ROLE kanflow_user NOLOGIN;" +
+      "GRANT kanflow_user TO postgres;" +
+      "GRANT usage ON SCHEMA public TO kanflow_user;" +
+      "GRANT ALL ON todo TO kanflow_user;" +
+      'GRANT USAGE, SELECT ON sequence "todo_ID_seq" to kanflow_user;'
   );
 
   return null;
 };
 
 exports.down = function(db) {
+  db.runSql(
+    "DROP OWNED BY web_anon;" +
+      "DROP OWNED BY kanflow_user;" +
+      "DROP ROLE web_anon;" +
+      "DROP ROLE kanflow_user;"
+  );
   return null;
 };
 
