@@ -12,12 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "flow-typed": "^2.5.1",
     "knex": "^0.16.0-next3",
     "node-fetch": "^2.2.1",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
+    "flow-typed": "^2.5.1",
     "flow-bin": "^0.86.0",
     "flow-remove-types": "^1.2.3"
   }
