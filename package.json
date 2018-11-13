@@ -4,12 +4,20 @@
   "description": "A kanban application focussed on flow",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "flow:check": "flow check ./src/",
+    "flow:build": "flow-remove-types ./src/ -d ./build/ --all --pretty",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./build/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "db-migrate-pg": "^0.4.0",
-    "node-fetch": "^2.2.1"
+    "knex": "^0.16.0-next3",
+    "node-fetch": "^2.2.1",
+    "sqlite3": "^4.0.4"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.86.0",
+    "flow-remove-types": "^1.2.3"
   }
 }

@@ -1,13 +1,16 @@
+// @flow
 const fetch = require("node-fetch");
 
-class Todoist {
-  constructor(token) {
+const TODOIST_BASE_URL = "https://beta.todoist.com/API/v8";
+
+export default class Todoist {
+  token: string;
+  constructor(token: string) {
     this.token = token;
-    this.base_url = "https://beta.todoist.com/API/v8/";
   }
 
   getProjects() {
-    return fetch(`${this.base_url}projects`, {
+    return fetch(`${TODOIST_BASE_URL}projects`, {
       method: "GET",
       headers: { Authorization: `Bearer ${this.token}` }
     })
@@ -23,7 +26,7 @@ class Todoist {
   }
 
   getTasks() {
-    return fetch(`${this.base_url}tasks`, {
+    return fetch(`${TODOIST_BASE_URL}tasks`, {
       method: "GET",
       headers: { Authorization: `Bearer ${this.token}` }
     })
@@ -38,4 +41,3 @@ class Todoist {
       });
   }
 }
-module.exports = Todoist;

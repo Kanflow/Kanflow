@@ -1,0 +1,11 @@
+[ignore]
+.*/node_modules/.*
+.*/migrations/.*
+
+[include]
+
+[libs]
+flow-typed
+
+[options]
+all=true
