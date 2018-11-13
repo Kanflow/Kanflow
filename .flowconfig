@@ -1,8 +1,10 @@
 [ignore]
 .*/node_modules/.*
 .*/migrations/.*
+.*/build/.*
 
 [include]
+./src/
 
 [libs]
 flow-typed

@@ -42,7 +42,7 @@ postgrest
 postgrest.config
 
 # Flow-typed
-flow_typed/*
+flow_typed/
 
 # knex
 database.json

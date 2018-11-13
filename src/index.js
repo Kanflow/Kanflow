@@ -1,14 +1,10 @@
 // @flow
 
 // import type Todoist from "./todoist/todoist";
-import { type Todo } from "./kanflow/kanflow";
+import type { Todo } from "./kanflow/types";
 
-const { Kanflow } = require("./kanflow/kanflow");
+const saveTodo = require("./kanflow/kanflow");
 
-const { KANFLOW_TOKEN } = process.env;
-const kt: string = KANFLOW_TOKEN ? KANFLOW_TOKEN : "";
-
-const kf: Kanflow = new Kanflow(kt, "https://localhost:3000");
 const td: Todo = {
   ID: 1,
   name: "Test",
@@ -25,4 +21,5 @@ const td: Todo = {
   external_provider_ID: "",
   external_item_ID: ""
 };
-kf.saveTodo(td);
+const x = saveTodo(td);
+console.log(x);
