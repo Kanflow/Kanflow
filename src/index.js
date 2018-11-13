@@ -2,8 +2,8 @@
 
 // import type Todoist from "./todoist/todoist";
 import type { Todo } from "./kanflow/types";
-
-const saveTodo = require("./kanflow/kanflow");
+import type { saveTodo } from "./kanflow/kanflow";
+const saveTodo: SaveTodo = require("./kanflow/kanflow");
 
 const td: Todo = {
   ID: 1,
@@ -21,5 +21,5 @@ const td: Todo = {
   external_provider_ID: "",
   external_item_ID: ""
 };
-const x = saveTodo(td);
-console.log(x);
+
+const x = saveTodo();

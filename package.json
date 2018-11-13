@@ -4,10 +4,11 @@
   "description": "A kanban application focussed on flow",
   "main": "index.js",
   "scripts": {
+    "flow": "flow",
+    "flow:build": "flow-remove-types ./src -d ./lib --all --pretty",
     "flow:check": "flow check ./src/",
-    "flow:build": "flow-remove-types ./src/ -d ./build/ --all --pretty",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./build/index.js"
+    "flow:deps": "flow-typed install",
+    "dev": "watch --wait=1 'flow-remove-types src/ -d lib/ --all --pretty' ./src/ & nodemon ./lib/"
   },
   "author": "",
   "license": "ISC",
@@ -17,8 +18,10 @@
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {
-    "flow-typed": "^2.5.1",
     "flow-bin": "^0.86.0",
-    "flow-remove-types": "^1.2.3"
+    "flow-remove-types": "^1.2.3",
+    "flow-typed": "^2.5.1",
+    "nodemon": "^1.11.0",
+    "watch": "^1.0.2"
   }
 }
