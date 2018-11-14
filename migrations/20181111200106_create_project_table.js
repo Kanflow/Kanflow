@@ -5,7 +5,6 @@ exports.up = function(knex, Promise) {
       .primary();
     t.string("name");
     t.text("description");
-    t.boolean("status");
     t.boolean("completed");
     t.boolean("archived");
     t.timestamp("archived_timestamp");
