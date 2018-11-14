@@ -1,13 +1,13 @@
 // @flow
 import type { Todo } from "./types";
+
 const DBConfig = require("../../knexfile");
 
 const knex = require("knex")(DBConfig.development);
 
 function saveTodo(t: Todo) {
-  knex("todo")
-    .insert({ name: "cat" )
-    .then(() => console.log("data inserted"))
+  return knex("todo")
+    .insert(t)
     .catch(err => {
       console.log(err);
       throw err;
@@ -17,5 +17,20 @@ function saveTodo(t: Todo) {
     });
 }
 
-module.exports = saveTodo;
-export type SaveTodo = () => any;
+function completeTodo(t: Todo) {
+  knex("todo")
+    .where("ID", "=", t.ID)
+    .update({ completed: true, completed_timestamp: Date.now() })
+    .then(query => {
+      return JSON.stringify(query);
+    })
+    .catch(err => {
+      console.log(err);
+      throw err;
+    })
+    .finally(() => {
+      knex.destroy();
+    });
+}
+
+module.exports = { saveTodo, completeTodo };

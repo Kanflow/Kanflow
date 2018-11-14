@@ -1,12 +1,13 @@
 // @flow
-
-// import type Todoist from "./todoist/todoist";
 import type { Todo } from "./kanflow/types";
-import type { saveTodo } from "./kanflow/kanflow";
-const saveTodo: SaveTodo = require("./kanflow/kanflow");
+require("dotenv").config();
+const Todoist = require("./todoist/todoist");
+const Kanflow = require("./kanflow/kanflow");
+
+const ts = Todoist.getTasks(process.env.TODOIST_API_KEY);
+ts.then(t => console.log(t));
 
 const td: Todo = {
-  ID: 1,
   name: "Test",
   description: "",
   status: "",
@@ -21,5 +22,5 @@ const td: Todo = {
   external_provider_ID: "",
   external_item_ID: ""
 };
-
-const x = saveTodo();
+const x = Kanflow.saveTodo(td);
+x.then(y => console.log(y));
