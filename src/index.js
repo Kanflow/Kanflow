@@ -1,10 +1,9 @@
 // @flow
 import type { Todo } from "./kanflow/types";
-require("dotenv").config();
 const Todoist = require("./todoist/");
 const Kanflow = require("./kanflow/");
-
-const ts = Todoist.getTasks(process.env.TODOIST_API_KEY);
+console.log(Todoist);
+const ts = Todoist.getTasks();
 ts.then(t => console.log(t));
 
 const td: Todo = {
