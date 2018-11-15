@@ -1,10 +1,11 @@
 // @flow
 import type { Todo } from "./kanflow/types";
+import type { Task } from "./todoist/types";
+const utils = require("./utils/");
 const Todoist = require("./todoist/");
 const Kanflow = require("./kanflow/");
-console.log(Todoist);
 const ts = Todoist.getTasks();
-ts.then(t => console.log(t));
+const xz = ts.then(result => console.log(utils.translateTaskToTodo(result[0])));
 
 const td: Todo = {
   name: "Test",
