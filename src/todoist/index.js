@@ -17,10 +17,12 @@ const Todoist = {
         if (res.ok) {
           return res.json();
         }
-        console.error(res.statusText); // TODO: Find a better way to handle errors
+        throw new Error(
+          `Failed to get projects from Todoist ${res.statusText}`
+        );
       })
       .catch(err => {
-        console.error("Error getting projects:", err); // TODO: Find a better way to handle errors
+        throw new Error(`Failed to get projects from Todoist ${err}`);
       });
   },
   getTasks(): Array<Task> {
@@ -32,10 +34,10 @@ const Todoist = {
         if (res.ok) {
           return res.json();
         }
-        console.error(res.statusText); // TODO: Find a better way to handle errors
+        throw new Error(`Failed to get tasks from Todoist ${res.statusText}`);
       })
       .catch(err => {
-        console.error("Error getting tasks:", err);
+        throw new Error(`Failed to get tasks from Todoist ${err}`);
       });
   }
 };
