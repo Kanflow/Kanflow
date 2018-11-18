@@ -1,7 +1,5 @@
 // @flow
 
-import type { Task } from "./types";
-
 const fetch = require("node-fetch");
 require("dotenv").config();
 
@@ -25,7 +23,7 @@ const Todoist = {
         throw new Error(`Failed to get projects from Todoist ${err}`);
       });
   },
-  getTasks(): Array<Task> {
+  getTasks() {
     return fetch(`${TODOIST_BASE_URL}tasks`, {
       method: "GET",
       headers: { Authorization: `Bearer ${this.token}` }
