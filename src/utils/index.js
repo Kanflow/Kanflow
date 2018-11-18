@@ -2,15 +2,14 @@
 import type { Todo } from "../kanflow/types";
 import type { Task } from "../todoist/types";
 
-// TODO: Complete translation
 function translateTaskToTodo(ts: Task): Todo {
   const td: Todo = {
     name: ts.content,
     description: "",
-    status: "",
+    status_ID: 0,
     archived: false,
     completed: false,
-    project_ID: "",
+    project_ID: 0,
     archived_timestamp: null,
     last_updated_timestamp: null,
     last_sync_timestamp: new Date(),
