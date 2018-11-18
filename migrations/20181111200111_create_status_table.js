@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("status", function(t) {
+  return knex.schema.createTable("status", t => {
     t.increments("ID")
       .unsigned()
       .primary();
