@@ -8,13 +8,13 @@ export type Todo = {
   completed: boolean,
   archived: boolean,
   project_ID?: number,
-  archived_timestamp: ?Date,
-  completed_timestamp: ?Date,
+  archived_timestamp?: ?Date,
+  completed_timestamp?: ?Date,
   created_timestamp: Date,
   last_updated_timestamp: Date,
-  last_sync_timestamp: ?Date,
-  external_provider_ID: string,
-  external_item_ID: string
+  last_sync_timestamp?: ?Date,
+  external_provider_ID?: string,
+  external_item_ID?: string
 };
 
 export type Project = {
@@ -23,8 +23,8 @@ export type Project = {
   description?: string,
   completed: boolean,
   archived: boolean,
-  archived_timestamp: ?Date,
-  completed_timestamp: ?Date,
+  archived_timestamp?: ?Date,
+  completed_timestamp?: ?Date,
   created_timestamp: Date,
   last_updated_timestamp: Date
 };
@@ -34,7 +34,7 @@ export type Status = {
   name: string,
   description?: string,
   archived: boolean,
-  archived_timestamp: ?Date,
+  archived_timestamp?: ?Date,
   created_timestamp: Date,
   last_updated_timestamp: Date
 };
