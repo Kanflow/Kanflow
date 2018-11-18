@@ -1,13 +1,11 @@
 import type { Todo } from "../types";
 
-const DBConfig = require("../../../knexfile");
-
-const env = "development";
-const knex = require("knex")(DBConfig[env]);
+const knex = require("../../db.js");
 
 function get(id: number) {
   return knex("todo")
     .where({ ID: id })
+    .select("*")
     .catch(err => {
       throw new Error(`Failed to get todo with ID ${id} from db ${err}`);
     })
@@ -18,7 +16,7 @@ function get(id: number) {
 
 function getAll() {
   return knex("todo")
-    .select()
+    .select("*")
     .catch(err => {
       throw new Error(`Failed to get all todos from db ${err}`);
     })
@@ -32,33 +30,40 @@ function changeStatus(
   prevStatusID: number,
   currentStatusID: number
 ) {
-  knex.transaction(trx =>
-    trx
-      .update({
-        status_ID: currentStatusID,
-        last_updated_timestamp: Date.now()
-      })
-      .into("todo")
-      .where("ID", "=", id)
-      .then(() =>
-        trx
-          .insert({
-            todo_ID: id,
-            previous_status_ID: prevStatusID,
-            current_status_ID: currentStatusID,
-            transition_timestamp: new Date()
-          })
-          .into("status_transition")
-      )
-      .catch(err => {
-        throw new Error(
-          `Failed to change status on todo and update in db ${err}`
-        );
-      })
-      .finally(() => {
-        knex.destroy();
-      })
-  );
+  return knex
+    .transaction(trx =>
+      trx
+        .update({
+          status_ID: currentStatusID,
+          last_updated_timestamp: Date.now()
+        })
+        .into("todo")
+        .where("ID", "=", id)
+        .then(() =>
+          trx
+            .insert({
+              todo_ID: id,
+              previous_status_ID: prevStatusID,
+              current_status_ID: currentStatusID,
+              transition_timestamp: new Date()
+            })
+            .into("status_transition")
+        )
+        .catch(err => {
+          throw new Error(
+            `Failed to change status on todo and update in db ${err}`
+          );
+        })
+        .finally(() => {
+          knex.destroy();
+        })
+    )
+    .catch(err => {
+      throw new Error(`Failed to change status in db ${err}`);
+    })
+    .finally(() => {
+      knex.destroy();
+    });
 }
 
 function create(

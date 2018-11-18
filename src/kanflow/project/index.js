@@ -1,10 +1,7 @@
 // @flow
 import type { Project } from "../types";
 
-const DBConfig = require("../../../knexfile");
-
-const env = "development";
-const knex = require("knex")(DBConfig[env]);
+const knex = require("../../db.js");
 
 function create(p: Project) {
   return knex("project")
