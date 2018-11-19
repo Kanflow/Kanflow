@@ -3,27 +3,37 @@ import type { Project } from "../types";
 
 const knex = require("../../db.js");
 
-function create(p: Project) {
+function get(id: number): Promise<Project> {
+  return knex("project")
+    .where({ ID: id })
+    .select("*")
+    .catch(err => {
+      throw new Error(`Failed to get project with ID ${id} from db ${err}`);
+    });
+}
+
+function getAll(): Promise<Array<Project>> {
+  return knex("project")
+    .select("*")
+    .catch(err => {
+      throw new Error(`Failed to get all projects from db ${err}`);
+    });
+}
+
+function create(p: Project): Promise<number> {
   return knex("project")
     .insert(p)
     .catch(err => {
       throw new Error(`Failed to save project to db ${err}`);
-    })
-    .finally(() => {
-      knex.destroy();
     });
 }
 
-function update(p: Project) {
+function update(p: Project): Promise<number> {
   return knex("project")
     .where("ID", "=", p.ID)
     .update(p)
-    .then(query => JSON.stringify(query))
     .catch(err => {
       throw new Error(`Failed to complete project and update in db ${err}`);
-    })
-    .finally(() => {
-      knex.destroy();
     });
 }
-module.exports = { create, update };
+module.exports = { get, getAll, create, update };

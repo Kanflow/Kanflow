@@ -13,17 +13,18 @@ module.exports = {
   staging: {
     client: "postgresql",
     connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
+      database: "postgres",
+      user: "postgres",
+      password: "mysecretpassword"
     },
     pool: {
-      min: 2,
+      min: 5,
       max: 10
     },
     migrations: {
       tableName: "knex_migrations"
-    }
+    },
+    debug: true
   },
 
   production: {

@@ -16,15 +16,6 @@ exports.up = function(knex, Promise) {
     t.timestamp("last_sync_timestamp");
     t.string("external_provider_ID");
     t.string("external_item_ID");
-    t.foreign("status_ID")
-      .references("ID")
-      .inTable("status");
-    t.foreign("project_ID")
-      .references("ID")
-      .inTable("project");
-    t.foreign("external_provider_ID")
-      .references("ID")
-      .inTable("provider");
   });
 };
 

@@ -5,27 +5,10 @@ const utils = require("./utils/");
 const todoist = require("./todoist/");
 const kanflow = require("./kanflow/");
 
-// const tx = todoist
-//   .getTasks()
-//   .then(tasks => tasks.map(t => utils.translateTaskToTodo(t)))
-//   .then(todo => {
-//     kanflow.todo.save(todo);
-//   });
+async function main() {
+  const b = await kanflow.todo.complete(1);
+  const c = await kanflow.todo.unComplete(1);
+  console.log(c);
+}
 
-const s: Status = {
-  name: "Backlog",
-  description: "Unprioritised tasks",
-  archived: false,
-  created_timestamp: new Date(),
-  last_updated_timestamp: new Date()
-};
-
-const s1: Status = {
-  name: "Todo",
-  description: "Prioritised backlog of tasks",
-  archived: false,
-  created_timestamp: new Date(),
-  last_updated_timestamp: new Date()
-};
-
-kanflow.todo.get(3).then(x => console.log(x));
+main();
