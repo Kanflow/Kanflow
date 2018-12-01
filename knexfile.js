@@ -7,7 +7,7 @@ module.exports = {
       filename: "./dev.sqlite3"
     },
     useNullAsDefault: true,
-    debug: true
+    debug: false
   },
 
   staging: {
