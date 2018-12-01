@@ -1,58 +1,37 @@
-import type { Status } from "../types";
+// @flow
+import type { Status } from "./model";
 
-const knex = require("../../db.js");
+const statusDAO = require("./dao");
 
-function get(id: number): Promise<Status> {
-  return knex("status")
-    .where({ ID: id })
-    .select("*")
-    .catch(err => {
-      throw new Error(`Failed to get status with ID ${id} from db ${err}`);
-    });
+// TODO: Need to add business logic
+async function add(
+  name: string,
+  description?: string,
+  lower_WIP_limit: number,
+  upper_WIP_limit: number,
+  next_status_ID: number,
+  previous_status_ID: number
+): Promise<Array<number>> {
+  /* TODO: need to check: 
+       - Does the previous status exist
+       - Does the next status exist
+    */
+
+  try {
+    const id = await statusDAO.create(
+      name,
+      description,
+      lower_WIP_limit,
+      upper_WIP_limit,
+      next_status_ID,
+      previous_status_ID
+    );
+    return id;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
-
-function getAll(): Promise<Array<Status>> {
-  return knex("status")
-    .select("*")
-    .catch(err => {
-      throw new Error(`Failed to get all statuses from db ${err}`);
-    });
-}
-
-// TODO: Should this accept a Status type or just the inputs required
-function create(s: Status): Promise<number> {
-  return knex("status")
-    .insert(s)
-    .catch(err => {
-      throw new Error(`Failed to save status to db ${err}`);
-    });
-}
-
-function archive(id: number): Promise<number> {
-  return knex("status")
-    .where("ID", "=", id)
-    .update({ archived: true, archived_timestamp: Date.now() })
-    .catch(err => {
-      throw new Error(`Failed to archive status (ID: ${id}) from db ${err}`);
-    });
-}
-
-// function delete(id: number) {
-//   return knex("status")
-//     .where("ID", "=", id)
-//     .delete()
-//     .then(query => JSON.stringify(query))
-//     .catch(err => {
-//       throw new Error(`Failed to delete status (ID: ${id}) from db ${err}`);
-//     })
-//     .finally(() => {
-//       knex.destroy();
-//     });
-// }
 
 module.exports = {
-  get,
-  getAll,
-  archive,
-  create
+  add
 };

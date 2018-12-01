@@ -1,14 +1,11 @@
 // @flow
-import type { Status } from "./kanflow/types";
-
-const utils = require("./utils/");
-const todoist = require("./todoist/");
 const kanflow = require("./kanflow/");
 
 async function main() {
-  const b = await kanflow.todo.complete(1);
-  const c = await kanflow.todo.unComplete(1);
-  console.log(c);
+  const status1 = await kanflow.status.add();
+  const id = await kanflow.todo.add("Cat", "This is a cat");
+  const id1 = await kanflow.todo.add("Dog", "This is a dog");
+  const id3 = await kanflow.todo.add("Potato", "This is a potato");
 }
 
 main();
