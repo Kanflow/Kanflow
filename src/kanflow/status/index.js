@@ -7,8 +7,8 @@ const statusDAO = require("./dao");
 async function add(
   name: string,
   description?: string,
-  lower_WIP_limit: number,
-  upper_WIP_limit: number,
+  lower_WIP_limit?: number,
+  upper_WIP_limit?: number,
   next_status_ID: number,
   previous_status_ID: number
 ): Promise<Array<number>> {
