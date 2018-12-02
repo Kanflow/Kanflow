@@ -2,6 +2,16 @@
 import type { Todo } from "../kanflow/types";
 import type { Task } from "../todoist/types";
 
+const knex = require("../db.js");
+
+function clearDB() {
+  knex.migrate.rollback();
+}
+
+function initialiseDB() {
+  knex.migrate.latest();
+}
+
 function translateTaskToTodo(ts: Task): Todo {
   const td: Todo = {
     name: ts.content,
@@ -21,4 +31,4 @@ function translateTaskToTodo(ts: Task): Todo {
   return td;
 }
 
-module.exports = { translateTaskToTodo };
+module.exports = { translateTaskToTodo, clearDB, initialiseDB };
