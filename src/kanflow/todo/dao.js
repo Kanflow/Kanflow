@@ -19,38 +19,17 @@ async function getAll(): Promise<Array<Todo>> {
     });
 }
 
-async function changeStatus(
-  id: number,
-  prevStatusID: number,
-  currentStatusID: number
-) {
-  return knex
-    .transaction(trx =>
-      trx
-        .update({
-          status_ID: currentStatusID,
-          last_updated_timestamp: Date.now()
-        })
-        .into("todo")
-        .where("ID", "=", id)
-        .then(() =>
-          trx
-            .insert({
-              todo_ID: id,
-              previous_status_ID: prevStatusID,
-              current_status_ID: currentStatusID,
-              transition_timestamp: new Date()
-            })
-            .into("status_transition")
-        )
-        .catch(err => {
-          throw new Error(
-            `Failed to change status on todo and update in db ${err}`
-          );
-        })
-    )
+async function changeStatus(id: number, nextStatusID: number) {
+  return knex("todo")
+    .where("ID", "=", id)
+    .update({
+      status_ID: nextStatusID,
+      last_updated_timestamp: Date.now()
+    })
     .catch(err => {
-      throw new Error(`Failed to change status in db ${err}`);
+      throw new Error(
+        `Failed to change status on todo and update in db ${err}`
+      );
     });
 }
 
