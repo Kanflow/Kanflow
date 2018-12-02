@@ -3,6 +3,7 @@ import type { Todo } from "./model";
 
 const todoDAO = require("./dao");
 const projectDAO = require("../project/dao");
+const statusDAO = require("../status/dao");
 
 /*
     You should be able to move an item to a different status
@@ -30,8 +31,8 @@ async function add(
     }
   }
   try {
-    // This dirty piece of code assumes that statusID = 0 is the backlog 🤮
-    const newTodo = await todoDAO.create(name, description, 0, projectID);
+    // This dirty piece of code assumes that statusID = 1 is the backlog 🤮
+    const newTodo = await todoDAO.create(name, description, 1, projectID);
     return newTodo.shift(); // mmmm tasty
   } catch (err) {
     throw new Error(err);
@@ -65,15 +66,53 @@ async function getAll(): Array<Todo> {
   }
 }
 
-// function getById(id: number): Array<Todo> {}
+async function changeStatus(id: number, newStatusID: number) {
+  try {
+    // Get todo ID
+    const ts = await todoDAO.get(id);
+    const t = ts.shift();
+    const currentStatusID = t.status_ID;
+
+    // Get current status
+    const currentStatuses = await statusDAO.get(currentStatusID);
+    const currentStatus = currentStatuses.shift();
+    const allowedNextStatusID = currentStatus.next_status_ID;
+    const allowedPrevStatusID = currentStatus.previous_status_ID;
+
+    // Check if the transition is allowed
+    if (
+      newStatusID !== allowedNextStatusID &&
+      newStatusID !== allowedPrevStatusID &&
+      newStatusID !== currentStatusID
+    ) {
+      throw new Error("Disallowed state transition");
+    }
+
+    // TODO: Check if it violates the WIP limits
+
+    await todoDAO.changeStatus(id, newStatusID);
+    return;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+async function get(id: number): Array<Todo> {
+  try {
+    const td = await todoDAO.get(id);
+    return td;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
 // function archive(id: number): boolean {}
-
-// function changeStatus(t: Todo, newStatus: Status) {}
 
 module.exports = {
   add,
   remove,
   archive,
+  changeStatus,
+  get,
   getAll
 };
