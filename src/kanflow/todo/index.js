@@ -7,7 +7,6 @@ const statusDAO = require("../status/dao");
 
 /*
     You should be able to move an item to a different status
-        Shouldn’t be able to move it to a backwards state
         Shouldn’t be able to move it if it violates the WIP of next state
         Shouldn’t be able to move it if it violates the WIP of Current state
     You should only be able to complete a todo item by moving it to the “Done” state
@@ -105,8 +104,6 @@ async function get(id: number): Array<Todo> {
     throw new Error(err);
   }
 }
-
-// function archive(id: number): boolean {}
 
 module.exports = {
   add,
