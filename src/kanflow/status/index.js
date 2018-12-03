@@ -11,7 +11,7 @@ async function add(
   upper_WIP_limit?: number,
   next_status_ID: number,
   previous_status_ID: number
-): Promise<Array<number>> {
+): Array<number> {
   /* TODO: need to check: 
        - Does the previous status exist
        - Does the next status exist
@@ -32,6 +32,46 @@ async function add(
   }
 }
 
+async function remove(id: number) {
+  try {
+    await statusDAO.remove(id);
+    return;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+async function archive(id: number) {
+  try {
+    await statusDAO.archive(id);
+    return;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+async function get(id: number): Array<Status> {
+  try {
+    const s = await statusDAO.get(id);
+    return s;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+async function getAll(): Array<Status> {
+  try {
+    const statuses = await statusDAO.getAll();
+    return statuses;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
 module.exports = {
-  add
+  add,
+  remove,
+  archive,
+  get,
+  getAll
 };
