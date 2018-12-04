@@ -10,8 +10,8 @@ export type Todo = {
   project_ID?: number,
   archived_timestamp?: ?Date,
   completed_timestamp?: ?Date,
-  created_timestamp: Date,
-  last_updated_timestamp: Date,
+  created_timestamp: ?Date,
+  last_updated_timestamp: ?Date,
   last_sync_timestamp?: ?Date,
   external_provider_ID?: string,
   external_item_ID?: string

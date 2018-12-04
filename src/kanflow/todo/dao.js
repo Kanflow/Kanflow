@@ -1,8 +1,9 @@
+// @flow
 import type { Todo } from "./model";
 
 const knex = require("../../db.js");
 
-async function get(id: number): Promise<Array<number>> {
+async function get(id: number): Promise<Array<Todo>> {
   return knex("todo")
     .where({ ID: id })
     .select("*")
@@ -54,11 +55,12 @@ async function create(
     external_provider_ID: "",
     last_sync_timestamp: null
   };
-  return knex("todo")
-    .insert(t)
-    .catch(err => {
-      throw new Error(`Failed to create new todo to db ${err}`);
-    });
+  try {
+    const result = await knex('todo').insert(t);
+    return result;
+  } catch(e) {
+    throw new Error(`Failed to create new todo to db ${e}`);
+  }
 }
 
 async function save(t: Todo): Promise<Array<number>> {
