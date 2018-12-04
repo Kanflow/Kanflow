@@ -17,7 +17,7 @@ async function add(
   name: string,
   description: string,
   projectID?: number
-): number {
+): Promise<number> {
   // Check if it's being added to a project that the project exists
   if (projectID) {
     try {
@@ -56,7 +56,7 @@ async function archive(id: number) {
   }
 }
 
-async function getAll(): Array<Todo> {
+async function getAll(): Promise<Array<Todo>> {
   try {
     const all = await todoDAO.getAll();
     return all;
@@ -96,7 +96,7 @@ async function changeStatus(id: number, newStatusID: number) {
   }
 }
 
-async function get(id: number): Array<Todo> {
+async function get(id: number): Promise<Array<Todo>> {
   try {
     const td = await todoDAO.get(id);
     return td;

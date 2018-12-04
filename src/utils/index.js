@@ -1,5 +1,5 @@
 // @flow
-import type { Todo } from "../kanflow/types";
+import type { Todo } from "../kanflow/todo/model";
 import type { Task } from "../todoist/types";
 
 const knex = require("../db.js");

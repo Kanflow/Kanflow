@@ -11,7 +11,7 @@ async function add(
   upper_WIP_limit?: number,
   next_status_ID: number,
   previous_status_ID: number
-): Array<number> {
+): Promise<Array<number>>{
   /* TODO: need to check: 
        - Does the previous status exist
        - Does the next status exist
@@ -50,7 +50,7 @@ async function archive(id: number) {
   }
 }
 
-async function get(id: number): Array<Status> {
+async function get(id: number): Promise<Array<Status>> {
   try {
     const s = await statusDAO.get(id);
     return s;
@@ -59,7 +59,7 @@ async function get(id: number): Array<Status> {
   }
 }
 
-async function getAll(): Array<Status> {
+async function getAll(): Promise<Array<Status>> {
   try {
     const statuses = await statusDAO.getAll();
     return statuses;

@@ -1,8 +1,9 @@
+// @flow
 import type { Status } from "./model";
 
 const knex = require("../../db.js");
 
-async function get(id: number): Promise<Array<number>> {
+async function get(id: number): Promise<Array<Status>> {
   return knex("status")
     .where({ ID: id })
     .select("*")
